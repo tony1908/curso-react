@@ -74,7 +74,7 @@ const fakeFetchProperties = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(mockProperties);
-        }, 5000);
+        }, 1000);
     });
 }
 
