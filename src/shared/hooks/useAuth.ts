@@ -8,6 +8,7 @@ export function useAuth() {
     const [authState, setAuthState] = useState<AuthState>({
         isAuthenticated: false
     })
+    
 
     const login = () => {
         setAuthState({

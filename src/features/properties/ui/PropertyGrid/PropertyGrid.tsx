@@ -6,25 +6,19 @@ import { type Property } from "../../model/types";
 
 function PropertyGrid() {
     const loadProperties = usePropertiesStore((state) => state.loadProperties);
-    const properties = usePropertiesStore((state) => state.properties);
+    //const properties = usePropertiesStore((state) => state.properties);
+    const sortedProperties = usePropertiesStore((state) => state.sortedProperties);
     const loading = usePropertiesStore((state) => state.loading);
     const searchTerm = usePropertiesStore((state) => state.searchTerm);
+    const searchProperties = usePropertiesStore((state) => state.searchProperties);
 
     useEffect(() => {
         loadProperties();
     }, []);
 
-    const sortedProperties = useMemo(() => {
-        const filteredProperties = !searchTerm
-            ? properties
-            : properties.filter((property: Property) => {
-                return property.location.toLowerCase().includes(searchTerm.toLowerCase());
-            });
-        return filteredProperties.sort((a, b) => {
-            return b.rating - a.rating;
-        });
-    }, [properties, searchTerm]);
-    
+    useEffect(() => {
+        searchProperties(searchTerm);
+    }, [searchTerm]);
 
     if (loading) {
         return <div>Loading...</div>;
