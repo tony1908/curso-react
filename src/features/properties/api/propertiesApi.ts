@@ -11,9 +11,13 @@ export class PropertiesApi {
             throw error;
         }
     }
-    static async searchProperties(location: string): Promise<Property[]> {
+    static async searchProperties(location: string, signal?: AbortSignal): Promise<Property[]> {
         try {
-            const response = await apiClient.get(`/properties/location/${location}`);
+            const response = await apiClient.get(`/properties/location/${location}`,
+                {
+                    signal
+                }
+            );
             return response.data;
         } catch (error) {
             console.error('Error fetching properties:', error);

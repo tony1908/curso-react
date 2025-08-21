@@ -1,24 +1,41 @@
 import { PropertyCard } from "../PropertyCard";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import './PropertyGrid.css'
 import { usePropertiesStore } from "../../model/store";
 import { type Property } from "../../model/types";
+import { PropertiesApi } from "../../api/propertiesApi";
 
 function PropertyGrid() {
     const loadProperties = usePropertiesStore((state) => state.loadProperties);
-    //const properties = usePropertiesStore((state) => state.properties);
-    const sortedProperties = usePropertiesStore((state) => state.sortedProperties);
+    const properties = usePropertiesStore((state) => state.properties);
+    //const sortedProperties = usePropertiesStore((state) => state.sortedProperties);
     const loading = usePropertiesStore((state) => state.loading);
     const searchTerm = usePropertiesStore((state) => state.searchTerm);
-    const searchProperties = usePropertiesStore((state) => state.searchProperties);
+    //const searchProperties = usePropertiesStore((state) => state.searchProperties);
+
+    const [sortedProperties, setSortedProperties] = useState<Property[]>([]);
 
     useEffect(() => {
         loadProperties();
     }, []);
 
     useEffect(() => {
-        searchProperties(searchTerm);
+        setSortedProperties(properties);
+    }, [properties]);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        const searchProperties = async () => {
+            const properties = await PropertiesApi.searchProperties(searchTerm, controller.signal);
+            setSortedProperties(properties);
+        }
+        searchProperties();
+        
+        return () => {
+            controller.abort();
+        }
     }, [searchTerm]);
+
 
     if (loading) {
         return <div>Loading...</div>;
