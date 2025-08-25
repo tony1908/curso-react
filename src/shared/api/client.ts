@@ -1,7 +1,9 @@
 import axios from "axios";
 import axiosRetry from "axios-retry";
+import Logger from "../lib/logger";
 
 const API_BASE_URL = 'https://91c48a924bb9.ngrok-free.app';
+const myLogger = new Logger();
 
 export const apiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -20,4 +22,18 @@ axiosRetry(apiClient, {
         return error.response?.status === 500;
     },
 });
-    
+
+apiClient.interceptors.request.use(
+    (config) => {
+        myLogger.info(config.url || '');
+        return config;
+    }
+)
+
+apiClient.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        myLogger.info(error);
+        return Promise.reject(error);
+    }
+); 

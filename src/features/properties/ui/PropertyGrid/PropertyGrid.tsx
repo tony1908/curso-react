@@ -24,6 +24,11 @@ function PropertyGrid() {
     }, [properties]);
 
     useEffect(() => {
+        if (searchTerm.trim() === "") {
+            setSortedProperties(properties);
+            return;
+        }
+        
         const controller = new AbortController();
         const searchProperties = async () => {
             const properties = await PropertiesApi.searchProperties(searchTerm, controller.signal);
