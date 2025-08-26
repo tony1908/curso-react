@@ -43,6 +43,10 @@ function ChatPage() {
             if (message.includes('Welcome') && !isRegistered) {
                 setIsRegistered(true);
                 addMessage(message, 'system');
+            } else if (message.includes('joined') || message.includes('left')) {
+                addMessage(message, 'system');
+            } else {
+                addMessage(message, 'received');
             }
         }
 
