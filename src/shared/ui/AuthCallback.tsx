@@ -8,6 +8,7 @@ const AuthCallback = () => {
 
     useEffect(() => {
         if (auth.isAuthenticated) {
+            localStorage.setItem('access_token', String(auth.user?.access_token) || '');
             navigate('/profile', {replace: true});
         }
     }, [auth.isAuthenticated, navigate])
