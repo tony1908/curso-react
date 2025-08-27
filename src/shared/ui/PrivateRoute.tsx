@@ -1,22 +1,28 @@
-import { useAuth } from "../hooks/useAuth";
-import { Navigate } from 'react-router-dom'
+import { useAuthContext } from '../hooks/AuthContext'
 
 interface PrivateRouteProps {
-    children: React.ReactNode
+    children: React.ReactNode,
+    roles?: string[],
+    fallback?: React.ReactNode
 }
 
-function PrivateRoute({ children }: PrivateRouteProps) {
-    const { isAuthenticated } = useAuth()
+function PrivateRoute({ children, roles, fallback }: PrivateRouteProps) {
+    const { isAuthenticated, isLoading, login } = useAuthContext()
+
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
 
     if (!isAuthenticated) {
         return (
-            <Navigate to='/' replace/>
+            <div>
+                <h1>You are not authenticated</h1>
+                <button onClick={login}>Login</button>
+            </div>
         )
     }
 
-    return (
-        <>{children}</>
-    )
+    return <>{children}</>
 
 }
 
