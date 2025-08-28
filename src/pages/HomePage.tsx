@@ -1,24 +1,24 @@
 import { PropertyGrid } from "../features/properties";
 import { SearchBar } from "../features/properties";
-import { useAuth } from "../shared/hooks/useAuth";
+import OneSignal from "react-onesignal";
+import { useEffect } from "react";
 
 
 function HomePage() {
-    const { login } = useAuth()
+    useEffect(() => {
+        OneSignal.init({
+            appId: "",
+            allowLocalhostAsSecureOrigin: true,
+        });
 
-    const handleLogin = () => {
-        login()
-    }
+
+            
+    }, []);
 
     return (
         <>
             <SearchBar />
             <PropertyGrid />
-            <div>
-                <button onClick={handleLogin}>
-                    Login
-                </button>
-            </div>
         </>
     )
 }
