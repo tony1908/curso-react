@@ -1,4 +1,7 @@
 declare module 'propertyService/PropertyApp' {
-    const PropertyApp: React.ComponentType;
+    interface PropertyAppProps {
+        properties: Property[];
+    }
+    const PropertyApp: React.ComponentType<PropertyAppProps>;
     export default PropertyApp;
 }

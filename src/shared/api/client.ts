@@ -2,7 +2,7 @@ import axios from "axios";
 import axiosRetry from "axios-retry";
 import Logger from "../lib/logger";
 
-const API_BASE_URL = 'https://91c48a924bb9.ngrok-free.app';
+const API_BASE_URL = 'https://5918b52ac4ca.ngrok-free.app';
 const myLogger = new Logger();
 
 export const apiClient = axios.create({
