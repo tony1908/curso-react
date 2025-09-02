@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAuthContext } from '../shared/hooks/AuthContext'
 
 function ProfilePage() {
@@ -12,27 +12,7 @@ function ProfilePage() {
         console.log(user)
     }, [user])
 
-    const formatClaim = (value: any) => {
-        if (typeof value === 'object' && value !== null) {
-            return JSON.stringify(value)
-        }
-        if (typeof value === 'boolean') {
-            return value ? 'true' : 'false'
-        }
 
-        if (typeof value === 'number') {
-            return value.toString()
-        }
-
-        return String(value || '')
-    }
-
-    const checkUsername = () => {
-        if (formatClaim(user?.profile?.username) == "admin") {
-            return "admin"
-        }
-        return "user";
-    }
     
     return (
         <div>

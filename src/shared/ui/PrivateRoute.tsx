@@ -6,7 +6,7 @@ interface PrivateRouteProps {
     fallback?: React.ReactNode
 }
 
-function PrivateRoute({ children, roles, fallback }: PrivateRouteProps) {
+function PrivateRoute({ children }: PrivateRouteProps) {
     const { isAuthenticated, isLoading, login } = useAuthContext()
 
     if (isLoading) {

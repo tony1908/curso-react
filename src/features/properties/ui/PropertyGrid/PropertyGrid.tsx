@@ -1,5 +1,5 @@
 import { PropertyCard } from "../PropertyCard";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import './PropertyGrid.css'
 import { usePropertiesStore } from "../../model/store";
 import { type Property } from "../../model/types";

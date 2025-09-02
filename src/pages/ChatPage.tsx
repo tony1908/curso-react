@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 import './ChatPage.css'
 
 interface Message {
@@ -16,8 +16,6 @@ function ChatPage() {
     const [messageInput, setMessageInput] = useState('');
     const [userId, setUserId] = useState('');
     const [roomName, setRoomName] = useState('');
-    const [currentRoom, setCurrentRoom] = useState<string | null>(null);
-    const messageEndRef = useRef<HTMLDivElement>(null);
 
     const connectToWebSocket = () => {
         const userIdValue = userId.trim();
@@ -33,7 +31,6 @@ function ChatPage() {
         webSocket.onopen = () => {
             setIsConnected(true);
             const room = roomName.trim();
-            setCurrentRoom(room);
             webSocket.send(`USER:${userIdValue}:${room}`)
         }
 
@@ -53,7 +50,6 @@ function ChatPage() {
         webSocket.onclose = (event) => {
             setIsConnected(false);
             setIsRegistered(false);
-            setCurrentRoom(null);
             setWs(null);
             addMessage('Connection closed: ' + event.code + ' ' + event.reason  , 'system');
         }

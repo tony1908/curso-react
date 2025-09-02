@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { usePropertiesStore } from '../features/properties/model/store'
 import { useNavigate, Link } from 'react-router-dom'
+import { type Property } from '../features/properties/model/types'
 import './PropertyDetailsPage.css'
 
 function PropertyDetailsPage() {
@@ -9,7 +10,7 @@ function PropertyDetailsPage() {
     const properties = usePropertiesStore((state) => state.properties)
   
     const propertyId = parseInt(id || '0', 10)
-    const property = properties.find(p => p.id === propertyId)
+    const property = properties.find((p: Property) => p.id === propertyId)
   
     // Mock data for enhanced Airbnb-like features
     const amenities = [
@@ -309,8 +310,8 @@ function PropertyDetailsPage() {
                 
                 <div className="guests-selector">
                   <label>GUESTS</label>
-                  <select defaultValue={property.guests > 2 ? 2 : 1}>
-                    {Array.from({ length: property.guests }, (_, i) => (
+                  <select defaultValue={2}>
+                    {Array.from({ length: 8 }, (_, i) => (
                       <option key={i + 1} value={i + 1}>
                         {i + 1} guest{i !== 0 ? 's' : ''}
                       </option>
