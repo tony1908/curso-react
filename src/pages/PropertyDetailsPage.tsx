@@ -1,16 +1,22 @@
 import { useParams } from 'react-router-dom'
-import { usePropertiesStore } from '../features/properties/model/store'
+import { useQuery } from '@apollo/client'
 import { useNavigate, Link } from 'react-router-dom'
 import { type Property } from '../features/properties/model/types'
+import { GET_PROPERTY } from '../shared/graphql/queries'
+import { type GetPropertyVariables } from '../shared/graphql/types'
 import './PropertyDetailsPage.css'
 
 function PropertyDetailsPage() {
     const { id } = useParams<{ id: string }>()
     const navigate = useNavigate()
-    const properties = usePropertiesStore((state) => state.properties)
   
     const propertyId = parseInt(id || '0', 10)
-    const property = properties.find((p: Property) => p.id === propertyId)
+    const { data, loading, error } = useQuery<{ property: Property }, GetPropertyVariables>(GET_PROPERTY, {
+        variables: { id: propertyId },
+        skip: !propertyId
+    })
+    
+    const property = data?.property
   
     // Mock data for enhanced Airbnb-like features
     const amenities = [
@@ -48,6 +54,31 @@ function PropertyDetailsPage() {
       }
     ]
   
+    if (loading) {
+        return (
+            <div className="property-details-container">
+                <div className="property-not-found">
+                    <h2>Loading...</h2>
+                    <p>Loading property details...</p>
+                </div>
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="property-details-container">
+                <div className="property-not-found">
+                    <h2>Error Loading Property</h2>
+                    <p>An error occurred while loading the property: {error.message}</p>
+                    <Link to="/" className="back-home-link">
+                        ← Back to Properties
+                    </Link>
+                </div>
+            </div>
+        )
+    }
+
     if (!property) {
       return (
         <div className="property-details-container">

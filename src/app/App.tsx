@@ -8,6 +8,7 @@ import SilentCallback from '../shared/ui/SilentCallback'
 
 const HomePage = lazy(() => import('../pages/HomePage'))
 const PropertyDetailsPage = lazy(() => import('../pages/PropertyDetailsPage'))
+const AddPropertyPage = lazy(() => import('../pages/AddPropertyPage'))
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
 const ChatPage = lazy(() => import('../pages/ChatPage'))
 const ProfilePage = lazy(() => import('../pages/ProfilePage'))
@@ -23,6 +24,7 @@ function App() {
             <Route path="/silent-callback" element={<SilentCallback />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/property/:id" element={<PropertyDetailsPage />} />
+            <Route path="/add-property" element={<AddPropertyPage />} />
             <Route path="/profile" element={
               <PrivateRoute>
                 <ProfilePage/>

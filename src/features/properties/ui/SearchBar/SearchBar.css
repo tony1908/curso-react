@@ -13,6 +13,9 @@
     max-width: 400px;
     width: 100%;
     transition: box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
   
   .search-bar:hover {
@@ -23,11 +26,34 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
   
+  .add-property-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #ff5a5f;
+    color: white;
+    text-decoration: none;
+    border-radius: 28px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .add-property-link:hover {
+    background-color: #e04e53;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(255, 90, 95, 0.3);
+  }
+
   .search-input-container {
     display: flex;
     align-items: center;
     padding: 8px 16px;
     gap: 12px;
+    flex: 1;
   }
   
   .search-icon {

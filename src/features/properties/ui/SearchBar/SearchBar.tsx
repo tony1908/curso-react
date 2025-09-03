@@ -1,4 +1,5 @@
 import { usePropertiesStore } from "../../model/store";
+import { Link } from 'react-router-dom';
 import './SearchBar.css'
 
 function SearchBar() {
@@ -16,6 +17,12 @@ function SearchBar() {
     return (
         <div className="search-container">
           <div className="search-bar">
+            <Link to="/add-property" className="add-property-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M12 5v14m7-7H5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Add Property
+            </Link>
             <div className="search-input-container">
               <svg 
                 className="search-icon" 
